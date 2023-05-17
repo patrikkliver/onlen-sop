@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CatalogController;
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +18,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $cart = Cart::select('id', 'user_id', 'product_id', 'quantity', 'price_per_item')->where('user_id', '=', auth()->id())->get();
+    $products = Product::select('id', 'name', 'price', 'stock', 'description', 'category_id')->get();
+    return view('catalog', ['products' => $products, 'cart' => $cart]);
+})->name('catalog');
+
+Route::get('catalog', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('catalog/{catalog}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Auth::routes(['verify' => true]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
 });
