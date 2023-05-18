@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::delete('cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+    Route::get('checkout', CheckoutController::class)->name('checkout');
+    Route::resource('order', OrderController::class)->except('create');
 });

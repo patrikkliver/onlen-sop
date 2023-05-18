@@ -51,7 +51,7 @@
           </tbody>
         </table>
       </div>
-      <button class="btn btn-dark mt-5">Go to checkout</button>
+      <a href="{{ url('checkout') }}" class="btn btn-dark mt-5">Go to checkout</a>
       <a href="{{ url('catalog') }}" class="btn btn-outline-secondary border-0 mt-5">Continue shopping</a>
     </div>
   </div>
