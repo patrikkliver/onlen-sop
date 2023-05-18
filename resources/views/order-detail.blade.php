@@ -66,8 +66,16 @@
         </table>
       </div>
       <div class="text-end">
-        <a href="#" class="btn btn-dark">Update Status</a>
-        <a href="#" class="btn btn-outline-danger border-0">Delete Order</a>
+        @can('update-order')
+          <a href="#" class="btn btn-dark">Update Status</a>
+        @endcan
+        @can('delete-order')
+          <form method="POST" action="{{ route('admin.order.destroy', $order->id) }}" class="d-inline">
+            @method('delete')
+            @csrf
+            <button type="submit" class="btn btn-outline-danger border-0">Delete Order</button>
+          </form>
+        @endcan
       </div>
     </div>
   </div>

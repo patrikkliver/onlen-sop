@@ -118,7 +118,7 @@ class OrderController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return redirect()->route('order.index')->with(['status' => 'success', 'message' => 'Order updated successfully.']);
+        return redirect()->route('admin.order.index')->with(['status' => 'success', 'message' => 'Order updated successfully.']);
     }
 
     /**

@@ -31,7 +31,7 @@
                 <td>{{ $item->created_at }}</td>
                 <td>Rp {{ number_format($item->total_price, 0, ',', '.') }}</td>
                 <td><span class="badge text-bg-primary">{{ $item->status }}</span></td>
-                <td><a href="{{ url('order/' . $item->id) }}" class="btn btn-outline-secondary border-0">Details</a></td>
+                <td><a href="{{ url((auth()->user()->is_admin ? 'admin' : 'user') . '/order/' . $item->id) }}" class="btn btn-outline-secondary border-0">Details</a></td>
               </tr>
             @endforeach
           </tbody>
