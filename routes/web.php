@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('is_admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::resource('order', OrderController::class)->except('create');
+
+        Route::resource('category', CategoryController::class);
+        Route::resource('product', ProductController::class);
     });
 
     // Route for User
