@@ -16,11 +16,10 @@ class ProductController extends Controller
      */
     public function index() : View
     {
-        $products = Product::select('id', 'name', 'price', 'stock', 'description', 'category_id')->get();
         $categories = Category::select('id', 'name')->get();
         $cart = Cart::select('id', 'user_id', 'product_id', 'quantity', 'price_per_item')->where('user_id', '=', auth()->id())->get();
         
-        return view('products', ['products' => $products, 'cart' => $cart, 'categories' => $categories]);
+        return view('products', ['cart' => $cart, 'categories' => $categories]);
     }
 
     /**

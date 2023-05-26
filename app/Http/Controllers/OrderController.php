@@ -17,14 +17,9 @@ class OrderController extends Controller
      */
     public function index() : View
     {
-        if (auth()->user()->is_admin) {
-            $data = Order::select('id', 'order_number', 'user_id', 'status', 'total_price', 'shipping_address', 'order_notes', 'created_at')->get();
-        } else {
-            $data = Order::select('id', 'order_number', 'user_id', 'status', 'total_price', 'shipping_address', 'order_notes', 'created_at')->where('user_id', '=', auth()->id())->get();
-        }
         $cart = Cart::select('id', 'user_id', 'product_id', 'quantity', 'price_per_item')->where('user_id', '=', auth()->id())->get();
         
-        return view('orders', ['orders' => $data, 'cart' => $cart]);
+        return view('orders', ['cart' => $cart]);
     }
 
     /**

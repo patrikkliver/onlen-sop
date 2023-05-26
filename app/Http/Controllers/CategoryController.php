@@ -16,10 +16,9 @@ class CategoryController extends Controller
      */
     public function index() : View
     {
-        $categories = Category::select('id', 'name', 'description')->get();
         $cart = Cart::select('id', 'user_id', 'product_id', 'quantity', 'price_per_item')->where('user_id', '=', auth()->id())->get();
         
-        return view('categories', ['categories' => $categories, 'cart' => $cart]);
+        return view('categories', ['cart' => $cart]);
     }
 
     /**

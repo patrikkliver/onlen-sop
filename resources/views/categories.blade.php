@@ -39,37 +39,7 @@
           <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addNewCategory">Add new category</button>
         </div>
       </div>
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Category Name</th>
-              <th>Description</th>
-              <th>Product</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($categories as $item)
-              <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->description }}</td>
-                <td>{{ $item->products->count() }}</td>
-                <td>
-                  <a href="{{ url('admin/category/' . $item->id . '/edit') }}" class="btn btn-outline-secondary border-0">Edit</a>
-                  <form class="d-flex d-inline" action="{{ route('admin.category.destroy', $item->id) }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-outline-danger border-0">Delete</button>
-                  </form>
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+      @livewire('show-categories')
     </div>
   </div>
 @endsection
